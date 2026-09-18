@@ -1,0 +1,88 @@
+@import 'tailwindcss';
+@import '@fontsource/fraunces/400.css';
+@import '@fontsource/fraunces/600.css';
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+
+:root {
+  --color-bg: #faf7f2;
+  --color-surface: #f2ede4;
+  --color-surface-raised: #ffffff;
+  --color-text: #2a2622;
+  --color-text-muted: #6b6357;
+  --color-accent: #3d6b5c;
+  --color-accent-strong: #2c5548;
+  --color-accent-contrast: #ffffff;
+  --color-clash: #b8543f;
+  --color-clash-bg: #f6e3dd;
+  --color-border: #ddd4c7;
+  --color-warning: #b8863f;
+  --color-warning-bg: #f6ecdd;
+}
+
+:root[data-theme='dark'] {
+  --color-bg: #201d1a;
+  --color-surface: #2b2723;
+  --color-surface-raised: #322d28;
+  --color-text: #ece6dc;
+  --color-text-muted: #a89e8f;
+  --color-accent: #6fa596;
+  --color-accent-strong: #8bbdae;
+  --color-accent-contrast: #14201c;
+  --color-clash: #d97a63;
+  --color-clash-bg: #3a2a24;
+  --color-border: #3c3630;
+  --color-warning: #d9ac63;
+  --color-warning-bg: #3a3224;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --color-bg: #201d1a;
+    --color-surface: #2b2723;
+    --color-surface-raised: #322d28;
+    --color-text: #ece6dc;
+    --color-text-muted: #a89e8f;
+    --color-accent: #6fa596;
+    --color-accent-strong: #8bbdae;
+    --color-accent-contrast: #14201c;
+    --color-clash: #d97a63;
+    --color-clash-bg: #3a2a24;
+    --color-border: #3c3630;
+    --color-warning: #d9ac63;
+    --color-warning-bg: #3a3224;
+  }
+}
+
+@theme {
+  --color-bg: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-surface-raised: var(--color-surface-raised);
+  --color-text: var(--color-text);
+  --color-text-muted: var(--color-text-muted);
+  --color-accent: var(--color-accent);
+  --color-accent-strong: var(--color-accent-strong);
+  --color-accent-contrast: var(--color-accent-contrast);
+  --color-clash: var(--color-clash);
+  --color-clash-bg: var(--color-clash-bg);
+  --color-border: var(--color-border);
+  --color-warning: var(--color-warning);
+  --color-warning-bg: var(--color-warning-bg);
+
+  --font-display: 'Fraunces', serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
