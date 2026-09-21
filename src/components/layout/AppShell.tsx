@@ -17,12 +17,7 @@ export function AppShell() {
     <div className="min-h-screen bg-bg">
       <header className="border-b border-border px-4 py-5 md:px-8">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4">
-          <div>
-            <p className="font-mono text-xs font-medium uppercase tracking-[0.15em] text-accent">
-              Schedule import · live builder
-            </p>
-            <h1 className="font-display text-3xl font-semibold text-text">Course Schedule Builder</h1>
-          </div>
+          <h1 className="font-display text-3xl font-semibold text-text">Course Schedule Builder</h1>
           <div className="flex flex-wrap items-center gap-3">
             <ThemeToggle />
             <ResetButton />
