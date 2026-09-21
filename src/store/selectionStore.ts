@@ -15,6 +15,9 @@ interface SelectionState {
   optimizedBaseline: Assignment | null
 
   addCourse: (code: string, courseMap: Map<string, Course>) => void
+  /** Adds several courses at once (e.g. from the post-import course picker) with a single
+   *  recompute, instead of recomputing the optimum once per course. */
+  addCourses: (codes: string[], courseMap: Map<string, Course>) => void
   removeCourse: (code: string, courseMap: Map<string, Course>) => void
   setCourseMode: (code: string, mode: 'choice' | 'optional', courseMap: Map<string, Course>) => void
   setSectionPick: (code: string, sectionId: string) => void
@@ -70,6 +73,13 @@ export const useSelectionStore = create<SelectionState>()(
       addCourse: (code, courseMap) => {
         if (get().selectedCourseCodes.includes(code)) return
         set((state) => ({ selectedCourseCodes: [...state.selectedCourseCodes, code] }))
+        get().recomputeAndApply(courseMap)
+      },
+
+      addCourses: (codes, courseMap) => {
+        const newCodes = codes.filter((code) => !get().selectedCourseCodes.includes(code))
+        if (newCodes.length === 0) return
+        set((state) => ({ selectedCourseCodes: [...state.selectedCourseCodes, ...newCodes] }))
         get().recomputeAndApply(courseMap)
       },
 

@@ -30,10 +30,10 @@ export function CourseSearch() {
         onFocus={() => setOpen(true)}
         onBlur={() => setTimeout(() => setOpen(false), 120)}
         placeholder="Search course code…"
-        className="w-full rounded-md border border-border bg-surface-raised px-3 py-2 font-mono text-sm text-text placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-accent"
+        className="w-full rounded-xl border border-border bg-surface-raised px-3 py-2 font-mono text-sm text-text placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-accent"
       />
       {open && results.length > 0 && (
-        <ul className="absolute z-10 mt-1 w-full overflow-hidden rounded-md border border-border bg-surface-raised shadow-lg">
+        <ul className="absolute z-10 mt-1 w-full overflow-hidden rounded-xl border border-border bg-surface-raised shadow-lg">
           {results.map((course) => (
             <li key={course.code}>
               <button

@@ -2,6 +2,7 @@ import type { Assignment, Course, CoursePick } from '@/types'
 import { OFF } from '@/types'
 import { useCatalogStore } from '@/store/catalogStore'
 import { useSelectionStore } from '@/store/selectionStore'
+import { courseColor } from '@/lib/courseColor'
 import { SectionOption } from './SectionOption'
 import { OptionalToggleBadge } from './OptionalToggleBadge'
 import { MeetingTimes } from './MeetingTimes'
@@ -24,19 +25,22 @@ export function OptionalRow({ course, pick, currentAssignment, courseMap }: Opti
   const singleSection = course.sections.length === 1 ? course.sections[0] : undefined
 
   return (
-    <div className="rounded-md border border-border border-dashed bg-surface-raised px-3 py-2">
-      <div className="flex items-center justify-between gap-3">
-        <label className="flex items-center gap-2 cursor-pointer">
+    <div
+      className="px-4 py-2.5"
+      style={{ borderLeft: `3px dashed ${courseColor(course.code)}` }}
+    >
+      <div className="flex items-start gap-3">
+        <label className="flex min-w-0 flex-1 items-center gap-2 cursor-pointer">
           <input
             type="checkbox"
             checked={pick.enabled}
             onChange={(e) => setOptionalEnabled(course.code, e.target.checked, courses)}
-            className="accent-accent"
+            className="shrink-0"
+            style={{ accentColor: courseColor(course.code) }}
           />
           <span className="font-mono text-sm font-medium text-text">{course.code}</span>
-          {singleSection && pick.enabled && <MeetingTimes section={singleSection} />}
         </label>
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2">
           <OptionalToggleBadge
             course={course}
             currentAssignment={currentAssignment}
@@ -62,8 +66,14 @@ export function OptionalRow({ course, pick, currentAssignment, courseMap }: Opti
         </div>
       </div>
 
+      {singleSection && pick.enabled && (
+        <div className="mt-1 pl-6">
+          <MeetingTimes section={singleSection} />
+        </div>
+      )}
+
       {pick.enabled && course.sections.length > 1 && (
-        <div className="mt-1 space-y-0.5 pl-6">
+        <div className="mt-1.5 space-y-1 pl-6">
           {course.sections.map((section) => (
             <SectionOption
               key={section.id}

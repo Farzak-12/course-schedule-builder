@@ -2,6 +2,27 @@ export type Weekday = 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri' | 'Sat' | 'Sun'
 
 export const WEEKDAY_ORDER: Weekday[] = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
+/** Turkish day names, for the small subtitle under each day column header. */
+export const WEEKDAY_TR: Record<Weekday, string> = {
+  Mon: 'Pazartesi',
+  Tue: 'Salı',
+  Wed: 'Çarşamba',
+  Thu: 'Perşembe',
+  Fri: 'Cuma',
+  Sat: 'Cumartesi',
+  Sun: 'Pazar',
+}
+
+export const WEEKDAY_FULL: Record<Weekday, string> = {
+  Mon: 'Monday',
+  Tue: 'Tuesday',
+  Wed: 'Wednesday',
+  Thu: 'Thursday',
+  Fri: 'Friday',
+  Sat: 'Saturday',
+  Sun: 'Sunday',
+}
+
 /** One contiguous meeting time for a section. A section can have several (e.g. Mon + Wed). */
 export interface Meeting {
   day: Weekday

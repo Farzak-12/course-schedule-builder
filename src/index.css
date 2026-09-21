@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 @import '@fontsource/fraunces/400.css';
 @import '@fontsource/fraunces/600.css';
+@import '@fontsource/fraunces/700.css';
 @import '@fontsource/inter/400.css';
 @import '@fontsource/inter/500.css';
 @import '@fontsource/inter/600.css';
@@ -16,44 +17,75 @@
   --color-accent: #3d6b5c;
   --color-accent-strong: #2c5548;
   --color-accent-contrast: #ffffff;
+  --color-accent-soft: #e3ece7;
   --color-clash: #b8543f;
   --color-clash-bg: #f6e3dd;
   --color-border: #ddd4c7;
   --color-warning: #b8863f;
   --color-warning-bg: #f6ecdd;
+
+  /* Stable per-course accent palette — assigned by hashing the course code, never by theme. */
+  --course-1: #3f7de0;
+  --course-2: #9c5fe0;
+  --course-3: #d94f88;
+  --course-4: #cf8620;
+  --course-5: #2f9e6e;
+  --course-6: #2094b8;
+  --course-7: #1fa393;
+  --course-8: #ab9420;
 }
 
 :root[data-theme='dark'] {
-  --color-bg: #201d1a;
-  --color-surface: #2b2723;
-  --color-surface-raised: #322d28;
-  --color-text: #ece6dc;
-  --color-text-muted: #a89e8f;
-  --color-accent: #6fa596;
-  --color-accent-strong: #8bbdae;
-  --color-accent-contrast: #14201c;
-  --color-clash: #d97a63;
-  --color-clash-bg: #3a2a24;
-  --color-border: #3c3630;
+  --color-bg: #0c0f0d;
+  --color-surface: #141815;
+  --color-surface-raised: #191e1a;
+  --color-text: #e9ece8;
+  --color-text-muted: #8a9490;
+  --color-accent: #5fb894;
+  --color-accent-strong: #7fd0af;
+  --color-accent-contrast: #08120d;
+  --color-accent-soft: #16261e;
+  --color-clash: #e0765f;
+  --color-clash-bg: #2a1613;
+  --color-border: #232823;
   --color-warning: #d9ac63;
-  --color-warning-bg: #3a3224;
+  --color-warning-bg: #241d10;
+
+  --course-1: #5f95f2;
+  --course-2: #b07df2;
+  --course-3: #f0699e;
+  --course-4: #eba53e;
+  --course-5: #4fcf99;
+  --course-6: #46c1e6;
+  --course-7: #3ecfb8;
+  --course-8: #d6bd3a;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --color-bg: #201d1a;
-    --color-surface: #2b2723;
-    --color-surface-raised: #322d28;
-    --color-text: #ece6dc;
-    --color-text-muted: #a89e8f;
-    --color-accent: #6fa596;
-    --color-accent-strong: #8bbdae;
-    --color-accent-contrast: #14201c;
-    --color-clash: #d97a63;
-    --color-clash-bg: #3a2a24;
-    --color-border: #3c3630;
+    --color-bg: #0c0f0d;
+    --color-surface: #141815;
+    --color-surface-raised: #191e1a;
+    --color-text: #e9ece8;
+    --color-text-muted: #8a9490;
+    --color-accent: #5fb894;
+    --color-accent-strong: #7fd0af;
+    --color-accent-contrast: #08120d;
+    --color-accent-soft: #16261e;
+    --color-clash: #e0765f;
+    --color-clash-bg: #2a1613;
+    --color-border: #232823;
     --color-warning: #d9ac63;
-    --color-warning-bg: #3a3224;
+    --color-warning-bg: #241d10;
+
+    --course-1: #5f95f2;
+    --course-2: #b07df2;
+    --course-3: #f0699e;
+    --course-4: #eba53e;
+    --course-5: #4fcf99;
+    --course-6: #46c1e6;
+    --course-7: #3ecfb8;
+    --course-8: #d6bd3a;
   }
 }
 
@@ -66,11 +98,21 @@
   --color-accent: var(--color-accent);
   --color-accent-strong: var(--color-accent-strong);
   --color-accent-contrast: var(--color-accent-contrast);
+  --color-accent-soft: var(--color-accent-soft);
   --color-clash: var(--color-clash);
   --color-clash-bg: var(--color-clash-bg);
   --color-border: var(--color-border);
   --color-warning: var(--color-warning);
   --color-warning-bg: var(--color-warning-bg);
+
+  --color-course-1: var(--course-1);
+  --color-course-2: var(--course-2);
+  --color-course-3: var(--course-3);
+  --color-course-4: var(--course-4);
+  --color-course-5: var(--course-5);
+  --color-course-6: var(--course-6);
+  --color-course-7: var(--course-7);
+  --color-course-8: var(--course-8);
 
   --font-display: 'Fraunces', serif;
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;

@@ -10,13 +10,15 @@ export interface RawTextItem {
   pageIndex: number
 }
 
-export type ParsedField = 'courseCode' | 'sectionLabel' | 'room' | 'day' | 'startTime' | 'endTime'
+export type ParsedField = 'courseCode' | 'title' | 'sectionLabel' | 'room' | 'day' | 'startTime' | 'endTime'
 
 export interface ParsedRow {
   id: string
   /** Raw extracted cell text keyed by column name, for debugging/inspection. */
   raw: Record<string, string>
   courseCode: string
+  /** The course's display name/title, e.g. "Dersin Adı" — blank when the source has no title column. */
+  title: string
   sectionLabel: string
   room: string
   day: Weekday | ''

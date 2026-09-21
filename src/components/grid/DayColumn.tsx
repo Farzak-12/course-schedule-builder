@@ -1,13 +1,16 @@
 import { useMemo } from 'react'
 import type { Weekday } from '@/types'
+import { WEEKDAY_FULL, WEEKDAY_TR } from '@/types'
 import type { GridBlock } from '@/lib/grid'
 import { layoutDayColumns } from '@/lib/layout/columnLayout'
+import { WarningIcon } from '@/components/common/icons'
 import { ClassBlock } from './ClassBlock'
 
 interface DayColumnProps {
   day: Weekday
   blocks: GridBlock[]
   clashedSectionIds: Set<string>
+  clashCount: number
   startMin: number
   endMin: number
 }
@@ -19,7 +22,7 @@ interface DayLayoutBlock {
   payload: GridBlock
 }
 
-export function DayColumn({ day, blocks, clashedSectionIds, startMin, endMin }: DayColumnProps) {
+export function DayColumn({ day, blocks, clashedSectionIds, clashCount, startMin, endMin }: DayColumnProps) {
   const positioned = useMemo(
     () =>
       layoutDayColumns<DayLayoutBlock>(
@@ -37,8 +40,15 @@ export function DayColumn({ day, blocks, clashedSectionIds, startMin, endMin }: 
 
   return (
     <div className="relative flex-1 min-w-0 border-l border-border">
-      <div className="sticky top-0 z-10 border-b border-border bg-bg px-2 py-1.5 text-center font-display text-sm text-text">
-        {day}
+      <div className="sticky top-0 z-10 flex h-14 flex-col items-center justify-center border-b border-border bg-bg px-2 text-center">
+        <div className="font-display text-sm font-medium text-text">{WEEKDAY_FULL[day]}</div>
+        <div className="font-mono text-[10px] uppercase tracking-wide text-text-muted">{WEEKDAY_TR[day]}</div>
+        {clashCount > 0 && (
+          <div className="mt-0.5 flex items-center justify-center gap-1 text-[10px] font-medium text-clash">
+            <WarningIcon className="h-2.5 w-2.5" />
+            {clashCount} {clashCount === 1 ? 'clash' : 'clashes'}
+          </div>
+        )}
       </div>
       <div className="relative" style={{ height: `${totalMin}px` }}>
         {positioned.map((p) => {

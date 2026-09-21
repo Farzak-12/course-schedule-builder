@@ -11,14 +11,14 @@ export function ThemeToggle() {
   const setMode = useThemeStore((s) => s.setMode)
 
   return (
-    <div className="inline-flex rounded-md border border-border bg-surface p-0.5 text-xs font-medium">
+    <div className="inline-flex rounded-full border border-border bg-surface p-0.5 text-xs font-medium">
       {OPTIONS.map((opt) => (
         <button
           key={opt.mode}
           type="button"
           onClick={() => setMode(opt.mode)}
           aria-pressed={mode === opt.mode}
-          className={`rounded px-2 py-1 transition-colors ${
+          className={`rounded-full px-2.5 py-1 transition-colors ${
             mode === opt.mode ? 'bg-accent text-accent-contrast' : 'text-text-muted hover:text-text'
           }`}
         >

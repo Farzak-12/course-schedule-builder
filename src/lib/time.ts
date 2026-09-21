@@ -1,6 +1,8 @@
-/** Parses "HH:MM" (or "H:MM") into minutes since midnight. Returns null if malformed. */
+/** Parses "HH:MM" into minutes since midnight. Tolerant of a trailing letter some exports
+ *  append (e.g. "10:45u" for a distance/online section) — the suffix is simply ignored. Returns
+ *  null if malformed. */
 export function parseTimeToMinutes(value: string): number | null {
-  const match = /^([01]?\d|2[0-3]):([0-5]\d)$/.exec(value.trim())
+  const match = /^([01]?\d|2[0-3]):([0-5]\d)[a-zçğıöşü]?$/i.exec(value.trim())
   if (!match) return null
   const hours = Number(match[1])
   const minutes = Number(match[2])

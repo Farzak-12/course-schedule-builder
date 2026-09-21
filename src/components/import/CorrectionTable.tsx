@@ -3,8 +3,9 @@ import { WEEKDAY_ORDER } from '@/types'
 import { useCatalogStore } from '@/store/catalogStore'
 import { WarningIcon } from '@/components/common/icons'
 
-const FIELDS: { key: 'courseCode' | 'sectionLabel' | 'room' | 'day' | 'startTime' | 'endTime' | 'instructor'; label: string }[] = [
+const FIELDS: { key: 'courseCode' | 'title' | 'sectionLabel' | 'room' | 'day' | 'startTime' | 'endTime' | 'instructor'; label: string }[] = [
   { key: 'courseCode', label: 'Course' },
+  { key: 'title', label: 'Title' },
   { key: 'sectionLabel', label: 'Şb.' },
   { key: 'room', label: 'Room' },
   { key: 'day', label: 'Day' },
@@ -37,14 +38,14 @@ export function CorrectionTable() {
         <button
           type="button"
           onClick={confirmCatalog}
-          className="rounded-md bg-accent px-3 py-1.5 text-sm font-medium text-accent-contrast hover:bg-accent-strong transition-colors"
+          className="rounded-full bg-accent px-4 py-1.5 text-sm font-medium text-accent-contrast hover:bg-accent-strong transition-colors"
         >
-          Confirm &amp; build catalog
+          Save corrections
         </button>
       </div>
 
       <div className="overflow-x-auto rounded-lg border border-border">
-        <table className="w-full min-w-[720px] border-collapse text-sm">
+        <table className="w-full min-w-215 border-collapse text-sm">
           <thead>
             <tr className="bg-surface text-left text-text-muted">
               {FIELDS.map((f) => (

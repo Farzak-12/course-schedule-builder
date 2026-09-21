@@ -10,7 +10,7 @@ export function TimeAxis({ startMin, endMin }: TimeAxisProps) {
   for (let h = Math.floor(startMin / 60); h * 60 <= endMin; h++) hours.push(h * 60)
 
   return (
-    <div className="relative w-14 shrink-0 text-right">
+    <div className="relative w-14 shrink-0 text-right" style={{ height: `${endMin - startMin}px` }}>
       {hours.map((min) => (
         <div
           key={min}

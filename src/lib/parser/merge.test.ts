@@ -6,6 +6,7 @@ function row(overrides: Partial<ParsedRow> & { id: string }): ParsedRow {
   return {
     raw: {},
     courseCode: 'BA205',
+    title: '',
     sectionLabel: '1',
     room: 'A204',
     day: 'Mon',
@@ -55,5 +56,32 @@ describe('mergeRowsIntoCatalog', () => {
     ]
     const { courses } = mergeRowsIntoCatalog(rows)
     expect(courses[0]!.sections).toHaveLength(2)
+  })
+
+  it('carries the course title through when the source provides one', () => {
+    const rows = [
+      row({ id: '1', sectionLabel: '1', title: 'Principles of Marketing' }),
+      row({ id: '2', sectionLabel: '2', title: '', startTime: '11:00', endTime: '12:50' }),
+    ]
+    const { courses } = mergeRowsIntoCatalog(rows)
+    expect(courses[0]!.title).toBe('Principles of Marketing')
+  })
+
+  it('leaves title undefined when the source has no title column', () => {
+    const rows = [row({ id: '1' })]
+    const { courses } = mergeRowsIntoCatalog(rows)
+    expect(courses[0]!.title).toBeUndefined()
+  })
+
+  it('merges two back-to-back period rows (same section, room, day) into one continuous meeting', () => {
+    // e.g. a 90-minute class exported as two adjacent 45-minute period rows.
+    const rows = [
+      row({ id: '1', day: 'Tue', room: 'LB211', startTime: '13:00', endTime: '13:45' }),
+      row({ id: '2', day: 'Tue', room: 'LB211', startTime: '14:00', endTime: '14:45' }),
+    ]
+    const { courses } = mergeRowsIntoCatalog(rows)
+    const meetings = courses[0]!.sections[0]!.meetings
+    expect(meetings).toHaveLength(1)
+    expect(meetings[0]).toMatchObject({ day: 'Tue', startMin: 13 * 60, endMin: 14 * 60 + 45, room: 'LB211' })
   })
 })

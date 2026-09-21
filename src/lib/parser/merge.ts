@@ -1,6 +1,7 @@
 import type { Course, Meeting, Section, Weekday } from '@/types'
 import { sectionId } from '@/lib/id'
 import { parseTimeToMinutes } from '@/lib/time'
+import { mergeAdjacentMeetings } from '@/lib/meetings'
 import type { ParsedRow } from './types'
 
 export interface MergeResult {
@@ -21,6 +22,7 @@ export function mergeRowsIntoCatalog(rows: ParsedRow[]): MergeResult {
     string,
     { courseCode: string; sectionLabel: string; instructor?: string; meetings: Meeting[]; sourceRowIds: string[] }
   >()
+  const titlesByCourse = new Map<string, string>()
 
   for (const row of rows) {
     const startMin = parseTimeToMinutes(row.startTime)
@@ -35,6 +37,10 @@ export function mergeRowsIntoCatalog(rows: ParsedRow[]): MergeResult {
       continue
     }
     seen.add(dedupeKey)
+
+    if (row.title && !titlesByCourse.has(row.courseCode)) {
+      titlesByCourse.set(row.courseCode, row.title)
+    }
 
     const sectionKey = `${row.courseCode}||${row.sectionLabel || '1'}`
     const entry = sectionsByKey.get(sectionKey) ?? {
@@ -57,12 +63,13 @@ export function mergeRowsIntoCatalog(rows: ParsedRow[]): MergeResult {
 
   const courseMap = new Map<string, Section[]>()
   for (const entry of sectionsByKey.values()) {
+    const meetings = mergeAdjacentMeetings(entry.meetings)
     const section: Section = {
-      id: sectionId(entry.courseCode, entry.sectionLabel, entry.meetings),
+      id: sectionId(entry.courseCode, entry.sectionLabel, meetings),
       courseCode: entry.courseCode,
       sectionLabel: entry.sectionLabel,
       instructor: entry.instructor,
-      meetings: entry.meetings,
+      meetings,
       sourceRowIds: entry.sourceRowIds,
     }
     const list = courseMap.get(entry.courseCode) ?? []
@@ -73,6 +80,7 @@ export function mergeRowsIntoCatalog(rows: ParsedRow[]): MergeResult {
   const courses: Course[] = [...courseMap.entries()]
     .map(([code, sections]) => ({
       code,
+      title: titlesByCourse.get(code),
       sections: sections.sort((a, b) => a.sectionLabel.localeCompare(b.sectionLabel)),
     }))
     .sort((a, b) => a.code.localeCompare(b.code))

@@ -1,6 +1,7 @@
 import type { Assignment, Course, CoursePick } from '@/types'
 import { useCatalogStore } from '@/store/catalogStore'
 import { useSelectionStore } from '@/store/selectionStore'
+import { courseColor } from '@/lib/courseColor'
 import { SectionOption } from './SectionOption'
 
 interface ChoiceRowProps {
@@ -17,7 +18,7 @@ export function ChoiceRow({ course, pick, currentAssignment, courseMap }: Choice
   const setCourseMode = useSelectionStore((s) => s.setCourseMode)
 
   return (
-    <div className="rounded-md border border-border bg-surface-raised px-3 py-2">
+    <div className="px-4 py-2.5" style={{ borderLeft: `3px solid ${courseColor(course.code)}` }}>
       <div className="flex items-center justify-between">
         <span className="font-mono text-sm font-medium text-text">{course.code}</span>
         <div className="flex items-center gap-2">
@@ -39,7 +40,7 @@ export function ChoiceRow({ course, pick, currentAssignment, courseMap }: Choice
           </button>
         </div>
       </div>
-      <div className="mt-1 space-y-0.5">
+      <div className="mt-1.5 space-y-1">
         {course.sections.map((section) => (
           <SectionOption
             key={section.id}

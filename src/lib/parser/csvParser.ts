@@ -10,6 +10,12 @@ const HEADER_ALIASES: Record<string, string> = {
   'ders kodu': 'courseCode',
   course: 'courseCode',
   code: 'courseCode',
+  'ders adı': 'title',
+  'dersin adı': 'title',
+  'course name': 'title',
+  'course title': 'title',
+  title: 'title',
+  name: 'title',
   'derslik kodu': 'room',
   derslik: 'room',
   room: 'room',
@@ -72,6 +78,7 @@ export function parseCsvText(text: string, sourceFile = 'pasted text'): ParsedRo
     })
 
     const courseCodeRaw = raw.courseCode ?? ''
+    const titleRaw = raw.title ?? ''
     const startTimeRaw = raw.startTime ?? ''
     const endTimeRaw = raw.endTime ?? ''
     const sectionLabelRaw = raw.sectionLabel ?? ''
@@ -97,6 +104,7 @@ export function parseCsvText(text: string, sourceFile = 'pasted text'): ParsedRo
       raw: {
         sectionLabel: sectionLabelRaw,
         courseCode: courseCodeRaw,
+        title: titleRaw,
         room: roomRaw,
         day: dayRaw,
         startTime: startTimeRaw,
@@ -104,6 +112,7 @@ export function parseCsvText(text: string, sourceFile = 'pasted text'): ParsedRo
         instructor: instructorRaw,
       },
       courseCode: normalized.courseCode,
+      title: titleRaw,
       sectionLabel: sectionLabelRaw,
       room: roomRaw,
       day: normalized.day,

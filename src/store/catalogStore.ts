@@ -4,18 +4,24 @@ import type { ParsedRow } from '@/lib/parser/types'
 import { mergeRowsIntoCatalog } from '@/lib/parser/merge'
 
 interface CatalogState {
-  /** Confirmed catalog, keyed by course code. Empty until the student confirms an import. */
+  /** Catalog built from every parsed row so far, keyed by course code. */
   courses: Map<string, Course>
-  /** Working set of rows awaiting review/correction, not yet part of the catalog. */
+  /** Every row parsed so far — the catalog is always re-derived from this, so edits (via the
+   *  optional correction table) can be re-synced with confirmCatalog(). */
   rawRows: ParsedRow[]
   importWarnings: string[]
+  /** True once at least one successful parse has produced a catalog. */
   confirmed: boolean
 
+  /** Adds newly parsed rows and immediately re-merges them into the catalog — no manual
+   *  "confirm" step; the course picker can appear right away. */
   addImportBatch: (rows: ParsedRow[]) => void
   setRawRows: (rows: ParsedRow[]) => void
   updateRawRow: (id: string, patch: Partial<ParsedRow>) => void
   deleteRawRow: (id: string) => void
   duplicateRawRow: (id: string) => void
+  /** Re-derives the catalog from the current rawRows — used for the initial auto-merge and to
+   *  re-sync after manual corrections. */
   confirmCatalog: () => void
   clearImport: () => void
 }
@@ -26,7 +32,10 @@ export const useCatalogStore = create<CatalogState>((set, get) => ({
   importWarnings: [],
   confirmed: false,
 
-  addImportBatch: (rows) => set((state) => ({ rawRows: [...state.rawRows, ...rows] })),
+  addImportBatch: (rows) => {
+    set((state) => ({ rawRows: [...state.rawRows, ...rows] }))
+    get().confirmCatalog()
+  },
 
   setRawRows: (rows) => set({ rawRows: rows }),
 

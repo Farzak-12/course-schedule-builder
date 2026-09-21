@@ -13,7 +13,7 @@ export function ResetButton() {
     <button
       type="button"
       onClick={() => resetToOptimum(courses)}
-      className="rounded-md border border-border bg-surface px-3 py-1.5 text-sm font-medium text-text hover:bg-surface-raised transition-colors"
+      className="rounded-full bg-accent px-4 py-1.5 text-sm font-medium text-accent-contrast hover:bg-accent-strong transition-colors"
     >
       Reset to best combination
     </button>
