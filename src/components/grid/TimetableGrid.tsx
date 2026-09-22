@@ -49,8 +49,8 @@ export function TimetableGrid() {
   }
 
   return (
-    <div className="overflow-x-auto rounded-lg border border-border bg-surface-raised">
-      <div className="flex min-w-[640px]">
+    <div className="overflow-x-auto rounded-lg border border-border bg-surface-raised print:overflow-visible print:border-0">
+      <div className="flex min-w-[640px] print:min-w-0">
         <div className="shrink-0">
           <div className="h-14" aria-hidden />
           <TimeAxis startMin={gridData.startMin} endMin={gridData.endMin} />
